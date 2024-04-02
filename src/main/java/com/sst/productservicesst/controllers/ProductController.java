@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 //This controller is capable to host HTTP API's
 ////localhost:8080/products -> ProductController
 @RestController
@@ -25,4 +27,11 @@ public class ProductController { // waiter
     public Product getProductById(@PathVariable("id") Long id) {
         return productService.getProductById(id);
     }
+
+    //localhost:8080/products
+    @GetMapping
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
+    }
+
 }
