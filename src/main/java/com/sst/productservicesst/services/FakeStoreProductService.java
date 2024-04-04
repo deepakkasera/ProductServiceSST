@@ -1,6 +1,7 @@
 package com.sst.productservicesst.services;
 
 import com.sst.productservicesst.dtos.FakeStoreProductDto;
+import com.sst.productservicesst.exceptions.ProductNotFoundException;
 import com.sst.productservicesst.models.Category;
 import com.sst.productservicesst.models.Product;
 import org.springframework.stereotype.Service;
@@ -17,18 +18,18 @@ public class FakeStoreProductService implements ProductService {
     @Override
     public Product getProductById(Long id) {
         ////Call the FakeStore API to get the product with give id.
-        throw new RuntimeException("Something went wrong in Service");
-//        RestTemplate restTemplate = new RestTemplate();
-//        FakeStoreProductDto fakeStoreProductDto =
-//                restTemplate.getForObject("https://fakestoreapi.com/products/" + id,
-//                FakeStoreProductDto.class);
-//
-//        if (fakeStoreProductDto == null) {
-//            return null;
-//        }
-//
-//        //convert FakeStoreProductDto object to Product object.
-//        return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
+        //int x = 1/0;
+        RestTemplate restTemplate = new RestTemplate();
+        FakeStoreProductDto fakeStoreProductDto =
+                restTemplate.getForObject("https://fakestoreapi.com/products/" + id,
+                FakeStoreProductDto.class);
+
+        if (fakeStoreProductDto == null) {
+            throw new ProductNotFoundException(id, "Please pass a valid productId");
+        }
+
+        //convert FakeStoreProductDto object to Product object.
+        return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
     }
 
     public List<Product> getAllProducts() {
