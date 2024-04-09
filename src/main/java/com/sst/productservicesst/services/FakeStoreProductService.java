@@ -8,11 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 
-@Service
+@Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService {
 
     @Override
@@ -45,6 +43,11 @@ public class FakeStoreProductService implements ProductService {
         return products;
     }
 
+    @Override
+    public Product createProduct(Product product) {
+        return null;
+    }
+
     private Product convertFakeStoreProductDtoToProduct(FakeStoreProductDto fakeStoreProductDto) {
         Product product = new Product();
         product.setId(fakeStoreProductDto.getId());
@@ -52,7 +55,7 @@ public class FakeStoreProductService implements ProductService {
         product.setDescription(fakeStoreProductDto.getDescription());
         product.setImage(fakeStoreProductDto.getImage());
         Category category = new Category();
-        category.setDescription(fakeStoreProductDto.getCategory());
+        //category.setDescription(fakeStoreProductDto.getCategory());
         product.setCategory(category);
 
         return product;
