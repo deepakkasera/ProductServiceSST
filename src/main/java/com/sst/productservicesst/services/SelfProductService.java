@@ -1,11 +1,11 @@
 package com.sst.productservicesst.services;
 
+import com.sst.productservicesst.exceptions.CategoryNotFoundException;
 import com.sst.productservicesst.exceptions.ProductNotFoundException;
 import com.sst.productservicesst.models.Category;
 import com.sst.productservicesst.models.Product;
 import com.sst.productservicesst.repositories.CategoryRepository;
 import com.sst.productservicesst.repositories.ProductRepository;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,6 +48,12 @@ public class SelfProductService implements ProductService {
 
         Product product1 = productRepository.save(product);
         Optional<Category> optionalCategory = categoryRepository.findById(category.getId());
+
+        if (optionalCategory.isEmpty()) {
+            //The category that is passed in the input product in invalid.
+            throw new CategoryNotFoundException("Invalid category id passed");
+        }
+
         product1.setCategory(optionalCategory.get());
         return product1;
     }
