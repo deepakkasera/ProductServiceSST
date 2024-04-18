@@ -36,8 +36,12 @@ public class ProductController { // waiter
 //                    new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
 //            return response;
 //        }
-        return productService.getProductById(id);
+        return productService.getProductById(id); //@1234
+        //product.setImage("sample image");
 
+//        Product product1 = new Product();
+//        product1.setTitle("Macbook");
+//        return product1; //@1234
     }
 
     //localhost:8080/products

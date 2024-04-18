@@ -14,6 +14,6 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Product> products;
+//    @OneToMany(fetch = FetchType.LAZY)
+//    private List<Product> products;
 }
