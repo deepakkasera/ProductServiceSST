@@ -3,6 +3,8 @@ package com.sst.productservicesst.controllers;
 import com.sst.productservicesst.models.Product;
 import com.sst.productservicesst.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,8 +48,9 @@ public class ProductController { // waiter
 
     //localhost:8080/products
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public Page<Product> getAllProducts(@RequestParam("pageNumber") int pageNumber,
+                                        @RequestParam("pageSize") int pageSize) {
+        return productService.getAllProducts(pageNumber, pageSize);
     }
 
     @PostMapping

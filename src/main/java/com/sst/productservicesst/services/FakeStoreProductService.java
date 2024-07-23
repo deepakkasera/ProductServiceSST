@@ -4,6 +4,7 @@ import com.sst.productservicesst.dtos.FakeStoreProductDto;
 import com.sst.productservicesst.exceptions.ProductNotFoundException;
 import com.sst.productservicesst.models.Category;
 import com.sst.productservicesst.models.Product;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,18 +31,23 @@ public class FakeStoreProductService implements ProductService {
         return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
     }
 
-    public List<Product> getAllProducts() {
-        RestTemplate restTemplate = new RestTemplate();
-        FakeStoreProductDto[] fakeStoreProductDtos =
-                restTemplate.getForObject("https://fakestoreapi.com/products",
-                        FakeStoreProductDto[].class);
-
-        List<Product> products = new ArrayList<>();
-        for (FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtos) {
-            products.add(convertFakeStoreProductDtoToProduct(fakeStoreProductDto));
-        }
-        return products;
+    @Override
+    public Page<Product> getAllProducts(int pageNumber, int pageSize) {
+        return null;
     }
+
+//    public List<Product> getAllProducts() {
+//        RestTemplate restTemplate = new RestTemplate();
+//        FakeStoreProductDto[] fakeStoreProductDtos =
+//                restTemplate.getForObject("https://fakestoreapi.com/products",
+//                        FakeStoreProductDto[].class);
+//
+//        List<Product> products = new ArrayList<>();
+//        for (FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtos) {
+//            products.add(convertFakeStoreProductDtoToProduct(fakeStoreProductDto));
+//        }
+//        return products;
+//    }
 
     @Override
     public Product createProduct(Product product) {
