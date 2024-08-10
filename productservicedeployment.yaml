@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productservices
+  labels:
+    app: productservices
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: productservices
+  template:
+    metadata:
+      name: productservices
+      labels:
+        app: productservices
+    spec:
+      containers:
+        - name: productservices
+          image: deepakkasera/productservice:v0.01
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      
