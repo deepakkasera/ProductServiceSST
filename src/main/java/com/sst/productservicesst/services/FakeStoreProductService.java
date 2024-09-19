@@ -32,7 +32,7 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
-    public Page<Product> getAllProducts(int pageNumber, int pageSize) {
+    public List<Product> getAllProducts(int pageNumber, int pageSize) {
         return null;
     }
 

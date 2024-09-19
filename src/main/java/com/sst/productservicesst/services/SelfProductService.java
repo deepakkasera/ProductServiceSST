@@ -38,7 +38,7 @@ public class SelfProductService implements ProductService {
     }
 
     @Override
-    public Page<Product> getAllProducts(int pageNumber, int pageSize) {
+    public List<Product> getAllProducts(int pageNumber, int pageSize) {
 
         //Sort.by("price").ascending().and(Sort.by("description")).descending();
 
@@ -48,7 +48,7 @@ public class SelfProductService implements ProductService {
                 Sort.by("price").ascending()
                 ));
 
-        return pages;
+        return pages.getContent();
     }
 
     @Override

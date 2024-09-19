@@ -8,7 +8,7 @@ import java.util.List;
 public interface ProductService {
     Product getProductById(Long id);
 
-    Page<Product> getAllProducts(int pageNumber, int pageSize);
+    List<Product> getAllProducts(int pageNumber, int pageSize);
 
     Product createProduct(Product product);
 }

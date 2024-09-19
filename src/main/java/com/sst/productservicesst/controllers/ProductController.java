@@ -4,9 +4,12 @@ import com.sst.productservicesst.models.Product;
 import com.sst.productservicesst.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 //This controller is capable to host HTTP API's
@@ -38,19 +41,24 @@ public class ProductController { // waiter
 //                    new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
 //            return response;
 //        }
-        return productService.getProductById(id); //@1234
-        //product.setImage("sample image");
+        Product product = productService.getProductById(id); //@1234
 
-//        Product product1 = new Product();
-//        product1.setTitle("Macbook");
-//        return product1; //@1234
+
+        return product;
     }
 
     //localhost:8080/products
     @GetMapping
     public Page<Product> getAllProducts(@RequestParam("pageNumber") int pageNumber,
                                         @RequestParam("pageSize") int pageSize) {
-        return productService.getAllProducts(pageNumber, pageSize);
+        List<Product> products = productService.getAllProducts(pageNumber, pageSize);
+        // List<Product> // @1234, @3241, @1245
+
+        for (Product product : products) {
+            product.setTitle("Hello " + product.getTitle());
+        }
+
+        return new PageImpl<>(products);
     }
 
     @PostMapping

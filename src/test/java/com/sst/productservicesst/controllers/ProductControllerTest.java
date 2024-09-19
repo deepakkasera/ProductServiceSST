@@ -6,56 +6,70 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class ProductControllerTest {
-    //What to test ?
-    //Happy test case, negative test case and edge case.
-    // Dependency Injection // Field Injection
     @Autowired
     private ProductController productController;
 
     @MockBean
-    private ProductService productService;
+    private ProductService productService; // This will NOT be an actual object, rather it will a mocked object.
 
     @Test
-    void testValidProductId() {
-        //Mock the productService method
+    public void testGetProductById_Success() {
+        Product product = new Product();
+        product.setTitle("iPhone 16 pro");
+        product.setDescription("Again best iPhone ever");
 
-        //Sample Product
-        Product product = new Product(); // @1234
-        product.setId(1L);
-        product.setTitle("iphone 15");
-        product.setPrice(100000.0);
-
-        //Mock the product service call.
         when(productService.getProductById(1L))
                 .thenReturn(product);
 
-        System.out.println(product.getImage()); // ->  NULL
+        Product response = productController.getProductById(10L);
 
-        Product outputProduct = productController.getProductById(1L); // @1234
-
-        System.out.println(product.getImage());
-        System.out.println(outputProduct.getImage());
-
-        System.out.println("DEBUG");
-        assertEquals(product, outputProduct);
+      assertEquals(product, response);
     }
 
     @Test
-    void testInvalidProductId() {
+    public void testGetAllProducts() {
+        List<Product> products = new ArrayList<>();
 
-    }
+        Product p1 = new Product(); // @1234
+        p1.setId(1L);
+        p1.setTitle("Macbook");
+        p1.setDescription("Best Macbook ever");
+        products.add(p1);
 
-    @Test
-    void getAllProducts() {
-    }
+        Product p2 = new Product(); // @3421
+        p2.setId(2L);
+        p2.setTitle("Macbook pro");
+        p2.setDescription("Best Macbook ever");
+        products.add(p2);
 
-    @Test
-    void createProduct() {
-    }
+        Product p3 = new Product(); // @1245
+        p3.setId(3L);
+        p3.setTitle("Macbook Pro Ultra");
+        p3.setDescription("Best Macbook ever");
+        products.add(p3);
+
+
+        when(productService.getAllProducts(0, 10))
+                .thenReturn(products);
+
+        Page<Product> productsPage = productController.getAllProducts(0, 10);
+        List<Product> response = productsPage.getContent();
+
+        assertEquals(products.size(), response.size());
+
+        for (int i = 0; i < products.size(); i++) {
+            assertEquals(products.get(i).getTitle(), response.get(i).getTitle());
+        }
+;    }
+
 }
