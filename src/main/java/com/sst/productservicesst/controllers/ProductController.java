@@ -25,7 +25,7 @@ public class ProductController { // waiter
 
     private AuthenticationCommons authenticationCommons;
 
-    ProductController(@Qualifier("selfProductService") ProductService productService,
+    ProductController(@Qualifier("fakeStoreProductService") ProductService productService,
                       AuthenticationCommons authenticationCommons) {
         this.productService = productService;
         this.authenticationCommons = authenticationCommons;
@@ -38,18 +38,18 @@ public class ProductController { // waiter
         // in the input parameter and then we'll have to validate the token
         // from UserService
 
-        UserDto userDto = authenticationCommons.validateToken(authenticationToken);
+//        UserDto userDto = authenticationCommons.validateToken(authenticationToken);
 
         ResponseEntity<Product> response = null;
 
-        if (userDto == null) {
-            response = new ResponseEntity<>(
-                    null,
-                    HttpStatus.UNAUTHORIZED
-            );
-
-            return response;
-        }
+//        if (userDto == null) {
+//            response = new ResponseEntity<>(
+//                    null,
+//                    HttpStatus.UNAUTHORIZED
+//            );
+//
+//            return response;
+//        }
 
         //throw new RuntimeException("Something went wrong");
 //        ResponseEntity<Product> responseEntity = null;
